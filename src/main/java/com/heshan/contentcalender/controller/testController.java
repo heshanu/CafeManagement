@@ -15,7 +15,7 @@ public class testController {
         System.out.println("test");
     }
 
-    @GetMapping(value = "/testTwo")
+    @GetMapping(value = "/testOne")
     public String test1(){
         return "test";
     }
