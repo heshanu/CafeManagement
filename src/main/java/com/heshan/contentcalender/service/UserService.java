@@ -11,6 +11,5 @@ public interface UserService {
 
     ResponseEntity<String> signUp(Map<String, String> requestMap);
     List<User> findAll();
-
-    User findByEmail(String email);
+    ResponseEntity<String> login(Map<String, String> requestMap);
 }

@@ -12,13 +12,14 @@ import java.util.Map;
 
 @RequestMapping("/user")
 public interface UserRest {
-
     @PostMapping("/signUp")
     public ResponseEntity<String> signUp(@RequestBody(required = true) Map<String, String> requestMap );
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody(required = true) Map<String, String> requestMap );
 
     @GetMapping("/")
     public List<User> getUser();
 
-    @GetMapping("/email")
-    public User getUserByEmail(@RequestBody String email);
+
 }

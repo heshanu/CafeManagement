@@ -29,20 +29,19 @@ public class UserRestImpl implements UserRest {
     }
 
     @Override
-    public List<User> getUser() {
-        return userService.findAll();
-    }
-
-    @Override
-    public User getUserByEmail(String email) {
+    public ResponseEntity<String> login(Map<String, String> requestMap) {
         try{
-            return userService.findByEmail(email);
+            return userService.login(requestMap);
         }
         catch (Exception e){
             e.printStackTrace();
         }
+        return new ResponseEntity<>(CafeConstant.Something_Went_Wrong, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 
-        return null;
+    @Override
+    public List<User> getUser() {
+        return userService.findAll();
     }
 
 }

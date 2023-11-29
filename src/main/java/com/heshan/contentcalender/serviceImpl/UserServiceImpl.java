@@ -49,15 +49,39 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User findByEmail(String email) {
-        return userDAO.findByEmailId(email);
+    public ResponseEntity<String> login(Map<String, String> requestMap) {
+        ILoggerFactory loggerFactory = null;
+        try{
+            if(validateSignUpRequest(requestMap)){
+                User user=userDAO.findByNamePassword(requestMap.get("name"),requestMap.get("password"));
+                //User user
+                if(Objects.isNull(user)){
+                    //userDAO.save(getUserFromMap(requestMap));
+                    return CafeUtils.getResponseEntity(CafeConstant.USER_LOGIN, HttpStatus.OK);
+                }else{
+                    return CafeUtils.getResponseEntity(CafeConstant.EMAIL_ALREADY_EXIST, HttpStatus.BAD_REQUEST);
+                }
+            }else{
+                return CafeUtils.getResponseEntity(CafeConstant.USER_LOGIN_SUCCESS, HttpStatus.BAD_REQUEST);
+            }}catch (Exception e){
+            logger.error("Exception in Login",e);
+            return CafeUtils.getResponseEntity(CafeConstant.Something_Went_Wrong, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
+
 
     public boolean validateSignUpRequest(Map<String, String> requestMap) {
       if( requestMap.containsKey("name") && requestMap.containsKey("email") && requestMap.containsKey("contactNumber") && requestMap.containsKey("password")){
           return true;
       }
       return false;
+    }
+
+    public boolean validateLoginRequest(Map<String, String> requestMap) {
+        if( requestMap.containsKey("email") && requestMap.containsKey("password")){
+            return true;
+        }
+        return false;
     }
 
     private User getUserFromMap(Map<String,String> requestMap){
@@ -68,4 +92,6 @@ public class UserServiceImpl implements UserService{
         user.setPassword(requestMap.get("password"));
         return user;
     }
+
+
 }
