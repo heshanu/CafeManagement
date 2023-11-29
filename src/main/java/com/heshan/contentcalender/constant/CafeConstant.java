@@ -12,5 +12,9 @@ public class CafeConstant {
     public static final String USER_LOGIN="User Login";
     public static final String USER_LOGIN_SUCCESS="Already Login";
 
+    public static final String UNABLE_TO_UPDATE="Unable to Update";
+
+    public static final String USER_UPDATE="User Updated";
+
 
 }

@@ -10,6 +10,10 @@ import lombok.NoArgsConstructor;
         query = "SELECT u FROM User u WHERE u.email = :email")
 @NamedQuery(name = "User.findByNamePassword",
         query = "SELECT u FROM User u WHERE u.name = :name and u.password = :password")
+@NamedQuery(name = "User.getAllUsers",
+        query = "SELECT new com.heshan.contentcalender.wrapper.UserWrapper(u.id,u.contactNumber,u.email,u.name,u.password,u.status) FROM User u where u.role='user'")
+@NamedQuery(name = "User.update",
+        query = "UPDATE User u SET u.status =:status WHERE u.id = :id")
 
 @Data
 @AllArgsConstructor

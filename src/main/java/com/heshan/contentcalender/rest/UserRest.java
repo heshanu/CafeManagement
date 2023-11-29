@@ -1,6 +1,7 @@
 package com.heshan.contentcalender.rest;
 
 import com.heshan.contentcalender.POJO.User;
+import com.heshan.contentcalender.wrapper.UserWrapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +21,12 @@ public interface UserRest {
 
     @GetMapping("/")
     public List<User> getUser();
+
+    @GetMapping("/get")
+    public ResponseEntity<List<UserWrapper>> getAllUser();
+
+    @PostMapping("/update")
+    public ResponseEntity<String> updateUser(@RequestBody(required = true) Map<String, String> requestMap );
 
 
 }
