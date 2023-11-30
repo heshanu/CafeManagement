@@ -18,5 +18,5 @@ public interface UserDAO extends JpaRepository<User, Integer> {
 @Modifying
     User update(@Param("status") String status,  @Param("id") Integer id);
 
-
+    User findByEmail(String email);
 }

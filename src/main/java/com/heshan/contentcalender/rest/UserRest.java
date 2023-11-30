@@ -21,12 +21,15 @@ public interface UserRest {
 
     @GetMapping("/")
     public List<User> getUser();
-
     @GetMapping("/get")
     public ResponseEntity<List<UserWrapper>> getAllUser();
 
     @PostMapping("/update")
     public ResponseEntity<String> updateUser(@RequestBody(required = true) Map<String, String> requestMap );
 
+    @PostMapping("/changePassword")
+    public ResponseEntity<String> changePassword(@RequestBody(required = true) Map<String, String> requestMap );
 
+    @PostMapping("/forgotPassword")
+    public ResponseEntity<String> forgotPassword(@RequestBody(required = true) Map<String, String> requestMap );
 }

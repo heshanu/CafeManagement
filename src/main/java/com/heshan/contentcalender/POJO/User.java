@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
 @NamedQuery(name = "User.findByEmailId",
@@ -18,6 +20,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@DynamicInsert
+@DynamicUpdate
 @Table(name = "user")
 public class User{
     private static final long serialVersionUID = 1L;

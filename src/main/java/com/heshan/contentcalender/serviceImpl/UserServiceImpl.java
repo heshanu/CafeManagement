@@ -1,5 +1,6 @@
 package com.heshan.contentcalender.serviceImpl;
 
+import com.google.common.base.Strings;
 import com.heshan.contentcalender.POJO.User;
 import com.heshan.contentcalender.constant.CafeConstant;
 import com.heshan.contentcalender.dao.UserDAO;
@@ -103,6 +104,49 @@ public class UserServiceImpl implements UserService {
             logger.error("Exception in update", e);
             return CafeUtils.getResponseEntity(CafeConstant.Something_Went_Wrong, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @Override
+    public ResponseEntity<String> changePassword(Map<String, String> requestMap) {
+        try{
+           User userObj=userDAO.findByEmail(requestMap.get("email"));
+          if(!userObj.equals(null)){
+              if(userObj.getPassword().equals(requestMap.get("oldPassword"))){
+                    userObj.setPassword(requestMap.get("newPassword"));
+                    userDAO.save(userObj);
+                    return CafeUtils.getResponseEntity("Password Updated Successfully", HttpStatus.BAD_REQUEST);
+              }else {
+                  return CafeUtils.getResponseEntity("Incorrect old Password", HttpStatus.BAD_REQUEST);
+              }//return CafeUtils.getResponseEntity("Password Updated Successfully", HttpStatus.BAD_REQUEST);
+          }
+          else{
+              return CafeUtils.getResponseEntity("Invalid Email", HttpStatus.BAD_REQUEST);
+          }
+        }
+        catch (Exception e){
+            logger.error("Exception in changePassword", e);
+            return CafeUtils.getResponseEntity(CafeConstant.Something_Went_Wrong, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public ResponseEntity<String> forgotPassword(Map<String, String> requestMap) {
+        try{
+            User userObj=userDAO.findByEmail(requestMap.get("email"));
+            if(!Objects.isNull(userObj) && !Strings.isNullOrEmpty(userObj.getEmail())){
+
+                return CafeUtils.getResponseEntity("Check your mail", HttpStatus.OK);
+            }
+            else{
+                //return CafeUtils.getResponseEntity("Invalid Email", HttpStatus.BAD_REQUEST);
+            }
+
+        }
+        catch (Exception e){
+            logger.error("Exception in forgotPassword", e);
+            return CafeUtils.getResponseEntity(CafeConstant.Something_Went_Wrong, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return CafeUtils.getResponseEntity(CafeConstant.Something_Went_Wrong, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 

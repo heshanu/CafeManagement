@@ -69,4 +69,27 @@ public class UserRestImpl implements UserRest {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(CafeConstant.UNABLE_TO_UPDATE);
     }
 
+    @Override
+    public ResponseEntity<String> changePassword(Map<String, String> requestMap) {
+        try{
+            return userService.changePassword(requestMap);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<String> forgotPassword(Map<String, String> requestMap) {
+        try{
+            return userService.forgotPassword(requestMap);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return CafeUtils.getResponseEntity(CafeConstant.Something_Went_Wrong, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
 }
+

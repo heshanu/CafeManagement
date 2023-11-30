@@ -16,5 +16,8 @@ public class CafeConstant {
 
     public static final String USER_UPDATE="User Updated";
 
+    public static final String VALID_TOKEN="Valid Token";
+    public static final String INVALID_TOKEN="Invalid Token";
+
 
 }
