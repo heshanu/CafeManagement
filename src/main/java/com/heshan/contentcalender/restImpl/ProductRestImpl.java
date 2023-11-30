@@ -1,6 +1,7 @@
 package com.heshan.contentcalender.restImpl;
 
 import com.heshan.contentcalender.POJO.Product;
+import com.heshan.contentcalender.constant.CafeConstant;
 import com.heshan.contentcalender.rest.ProductRest;
 import com.heshan.contentcalender.service.ProductService;
 import com.heshan.contentcalender.utils.CafeUtils;
@@ -38,6 +39,61 @@ public class ProductRestImpl implements ProductRest {
             e.printStackTrace();
         }
         return new ResponseEntity<>(new ArrayList<>(),HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @Override
+    public ResponseEntity<String> updateProduct(Map<String, String> requestMap) {
+        try{
+            return productService.updateProduct(requestMap);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return CafeUtils.getResponseEntity(CafeConstant.Something_Went_Wrong,HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @Override
+    public ResponseEntity<String> deleteProduct(Integer id) {
+        try{
+            return productService.deleteProduct(id);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return CafeUtils.getResponseEntity(CafeConstant.Something_Went_Wrong,HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @Override
+    public ResponseEntity<String> updateStatus(Map<String, String> requestMap) {
+        try{
+            return productService.updateStatus(requestMap);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>(CafeConstant.Something_Went_Wrong,HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @Override
+    public ResponseEntity<List<Product>> getProductByCategory(Integer id) {
+        try{
+            return productService.getProductByCategory(id);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>(new ArrayList<>(),HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @Override
+    public ResponseEntity<Product> getProductById(Integer id) {
+        try{
+            return productService.getProductById(id);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
 
