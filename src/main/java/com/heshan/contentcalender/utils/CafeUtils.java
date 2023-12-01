@@ -17,7 +17,7 @@ public class CafeUtils {
     }
 
     public static ResponseEntity<String> getResponseEntity(String responseMessage, HttpStatus httpStatus) {
-        return new ResponseEntity<String>("{\"message\":\""+responseMessage, httpStatus);
+        return new ResponseEntity<String>("{\"message\":\""+responseMessage+"\t}", httpStatus);
     }
 
     public static String getUUID(){
@@ -25,12 +25,10 @@ public class CafeUtils {
         long time=data.getTime();
         return "BILL"+time;
     }
-
     public static JSONArray getJSONArrayFromString(String data) throws JSONException {
         JSONArray jsonArray=new JSONArray(data);
         return jsonArray;
     }
-
     public static Map<String,Object> getMapFromJSON(String data) throws JSONException {
         if(!Strings.isNullOrEmpty(data)){
             return new Gson().fromJson(data,new TypeToken<Map<String,Object>>(){}.getType());

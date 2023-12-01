@@ -19,7 +19,7 @@ public class CafeConstant {
     public static final String VALID_TOKEN="Valid Token";
     public static final String INVALID_TOKEN="Invalid Token";
 
-    public static final String STORE_LOCATION="/home/heshan/Documents/CafeDocuement";
+    public static final String STORE_LOCATION="/home/heshan/Documents/CafeDocuement/";
 
 
 }

@@ -12,6 +12,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -41,8 +42,8 @@ public class BillServiceImpl implements BillService {
                     insertBill(requestMap);
                 }
                 String data="Name"+requestMap.get("name")+"\n"+"Email"+requestMap.get("email")+"\n"+"Contact Number"+requestMap.get("contactNumber")+"\n"+"Payment Method"
-                        +requestMap.get("paymentMethod")+"\n"+"Total"+
-                        requestMap.get("total");
+                        +requestMap.get("paymentMethod");
+
 
                 Document document=new Document();
                 PdfWriter.getInstance(document,new FileOutputStream(CafeConstant.STORE_LOCATION+fileName+".pdf"));
@@ -69,13 +70,13 @@ public class BillServiceImpl implements BillService {
                 Paragraph footer=new Paragraph("Total"+requestMap.get("total")+"\n\n"+"Thank you for visiting,Please visit again",getFont("Data"));
                 document.add(footer);
                 document.close();
-                return new ResponseEntity<>("Report Generated Successfully"+"{\"uuid\":\"}+fileName+", org.springframework.http.HttpStatus.OK);
+                return new ResponseEntity<>("Report Generated Successfully"+"{\"uuid\":\"}"+fileName,HttpStatus.OK);
             }else {return CafeUtils.getResponseEntity("Required data not found", org.springframework.http.HttpStatus.BAD_REQUEST);}
         }
         catch (Exception e){
             e.printStackTrace();
         }
-        return new ResponseEntity<>("unable to generate", org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>("unable to generate bill", org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     private void addRows(PdfPTable table, Map<String, Object> mapFromJSON) {
@@ -83,7 +84,7 @@ public class BillServiceImpl implements BillService {
         table.addCell((String) mapFromJSON.get("name"));
         table.addCell((String) mapFromJSON.get("category"));
         table.addCell((String) mapFromJSON.get("quantity"));
-        table.addCell((String) mapFromJSON.get("price"));
+        table.addCell((Double.toString((Double) mapFromJSON.get("price"))));
         table.addCell((String) mapFromJSON.get("subTotal"));
     }
 
@@ -124,7 +125,7 @@ public class BillServiceImpl implements BillService {
         rect.enableBorderSide(2);
         rect.enableBorderSide(4);
         rect.enableBorderSide(8);
-        rect.setBackgroundColor(BaseColor.BLACK);
+        rect.setBackgroundColor(BaseColor.WHITE);
         rect.setBorderWidth(1);
         document.add(rect);
     }
