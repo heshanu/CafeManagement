@@ -8,6 +8,11 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import java.io.Serializable;
+@NamedQuery(name="Bill.getBillById",query = "select b from Bill b where b.id=:id")
+@NamedQuery(name="Bill.getBillsByUsername",query = "select b from Bill b where b.createdBy=:username")
+@NamedQuery(name="Bill.getBillsByUUID",query = "select b from Bill b where b.uuid=:uuid")
+@NamedQuery(name="Bill.getBillByUID",query = "select b from Bill b where b.uuid=:uuid")
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -28,9 +33,6 @@ public class Bill implements Serializable {
     private String total;
     @Column(columnDefinition = "JSON")
     private String productDetails;
-
     private String createdBy;
-
-
 
 }
